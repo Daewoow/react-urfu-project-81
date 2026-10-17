@@ -9,7 +9,13 @@ const readFixture = (name: string): string =>
   readFileSync(new URL(`./__fixtures__/${name}`, import.meta.url), 'utf-8').trim();
 
 describe('HexletCode.formFor', () => {
-    it('generates an empty form with default attributes', () => {
+  it('is exported from the package entrypoint', async () => {
+    const packageModule = await import('@hexlet/code');
+
+    expect(packageModule.default.formFor).toBeTypeOf('function');
+  });
+
+  it('generates an empty form with default attributes', () => {
     const form = HexletCode.formFor(template, {}, () => {});
 
     expect(form).toBe('<form action="#" method="post"></form>');
