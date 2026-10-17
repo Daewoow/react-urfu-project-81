@@ -4,7 +4,9 @@ export type Entity = Record<string, unknown>;
 
 export type InputOptions = {
   as?: string;
-  [name: string]: string | number | boolean | undefined;
+  label?: string;
+  labelHtml?: TagAttributes;
+  [name: string]: string | number | boolean | TagAttributes | undefined;
 };
 
 export type FormElement = {
@@ -31,13 +33,14 @@ class FormBuilder {
       throw new Error(`Field '${name}' does not exist in the template.`);
     }
 
+    const { as, label, labelHtml, ...customAttributes } = options;
+
     this.elements.push({
       name: 'label',
-      attributes: { for: name },
-      body: capitalize(name),
+      attributes: { for: name, ...(labelHtml ?? {}) },
+      body: label ?? capitalize(name),
     });
 
-    const { as, ...customAttributes } = options;
     const attributes = toTagAttributes(customAttributes);
     const value = String(this.entity[name]);
 

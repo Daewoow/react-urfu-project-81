@@ -26,8 +26,8 @@ export const formFor = (
   return new Tag(
     'form',
     {
-      action: options.url ?? '#',
       method: options.method ?? 'post',
+      action: options.url ?? '#',
     },
     body,
   ).toString();

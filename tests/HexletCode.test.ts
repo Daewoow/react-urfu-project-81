@@ -12,13 +12,13 @@ describe('HexletCode.formFor', () => {
   it('generates an empty form with default attributes', () => {
     const form = HexletCode.formFor(template, {}, () => {});
 
-    expect(form).toBe('<form action="#" method="post"></form>');
+    expect(form).toBe('<form method="post" action="#"></form>');
   });
 
   it('uses the specified URL as the form action', () => {
     const form = HexletCode.formFor(template, { url: '/users' }, () => {});
 
-    expect(form).toBe('<form action="/users" method="post"></form>');
+    expect(form).toBe('<form method="post" action="/users"></form>');
   });
 
   it('generates input and textarea fields from the template', () => {
@@ -63,7 +63,7 @@ describe('HexletCode.formFor', () => {
     });
 
     expect(form).toBe(
-      '<form action="#" method="post"><input type="submit" value="Wow"></form>',
+      '<form method="post" action="#"><input type="submit" value="Wow"></form>',
     );
   });
 
