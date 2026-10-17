@@ -6,6 +6,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
+    "pretest": "npm run build",
+    "pretest:coverage": "npm run build",
     "lint": "eslint .",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"
