@@ -1,14 +1,15 @@
 import Tag from './Tag.js';
+import FormBuilder, {
+  type Entity,
+  type InputOptions,
+} from './FormBuilder.js';
 
-export type Entity = Record<string, unknown>;
+export type { Entity, InputOptions };
 
 export type FormOptions = {
+  method?: string;
   url?: string;
 };
-
-class FormBuilder {
-  constructor(readonly entity: Entity) {}
-}
 
 export const formFor = (
   entity: Entity,
@@ -20,8 +21,8 @@ export const formFor = (
 
   return new Tag('form', {
     action: options.url ?? '#',
-    method: 'post',
-  }).toString();
+    method: options.method ?? 'post',
+  }, builder.toString()).toString();
 };
 
 const HexletCode = { formFor };
