@@ -1,10 +1,7 @@
 import Tag from './Tag.js';
-import FormBuilder, {
-  type Entity,
-  type InputOptions,
-} from './FormBuilder.js';
+import FormBuilder, { type Entity } from './FormBuilder.js';
 
-export type { Entity, InputOptions };
+export type { Entity, InputOptions } from './FormBuilder.js';
 
 export type FormOptions = {
   method?: string;
@@ -19,10 +16,21 @@ export const formFor = (
   const builder = new FormBuilder(entity);
   callback(builder);
 
-  return new Tag('form', {
-    action: options.url ?? '#',
-    method: options.method ?? 'post',
-  }, builder.toString()).toString();
+  const body = builder
+    .getElements()
+    .map((element) =>
+      new Tag(element.name, element.attributes, element.body).toString(),
+    )
+    .join('');
+
+  return new Tag(
+    'form',
+    {
+      action: options.url ?? '#',
+      method: options.method ?? 'post',
+    },
+    body,
+  ).toString();
 };
 
 const HexletCode = { formFor };

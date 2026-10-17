@@ -47,6 +47,26 @@ describe('HexletCode.formFor', () => {
     expect(form).toBe(readFixture('form-with-overridden-textarea.html'));
   });
 
+  it('adds a submit button with the default text', () => {
+    const form = HexletCode.formFor(template, {}, (f) => {
+      f.input('name');
+      f.input('job', { as: 'textarea' });
+      f.submit();
+    });
+
+    expect(form).toBe(readFixture('form-with-submit.html'));
+  });
+
+  it('sets custom submit button text', () => {
+    const form = HexletCode.formFor(template, {}, (f) => {
+      f.submit('Wow');
+    });
+
+    expect(form).toBe(
+      '<form action="#" method="post"><input type="submit" value="Wow"></form>',
+    );
+  });
+
   it('throws when the field does not exist in the template', () => {
     expect(() =>
       HexletCode.formFor(template, { url: '/users' }, (f) => {

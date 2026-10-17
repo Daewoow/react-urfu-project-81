@@ -33,10 +33,11 @@ const template = { name: 'rob', job: 'hexlet', gender: 'm' };
 const form = HexletCode.formFor(template, { url: '/users' }, (f) => {
   f.input('name', { class: 'user-input' });
   f.input('job', { as: 'textarea', rows: 50, cols: 50 });
+  f.submit('Send');
 });
 
 console.log(form);
-// <form action="/users" method="post"><input name="name" type="text" value="rob" class="user-input"><textarea cols="50" rows="50" name="job">hexlet</textarea></form>
+// <form action="/users" method="post"><label for="name">Name</label><input name="name" type="text" value="rob" class="user-input"><label for="job">Job</label><textarea cols="50" rows="50" name="job">hexlet</textarea><input type="submit" value="Send"></form>
 ```
 
 ---

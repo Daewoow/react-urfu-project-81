@@ -1,4 +1,4 @@
-import Tag, { type TagAttributes } from './Tag.js';
+import { type TagAttributes } from './Tag.js';
 
 export type Entity = Record<string, unknown>;
 
@@ -7,13 +7,22 @@ export type InputOptions = {
   [name: string]: string | number | boolean | undefined;
 };
 
+export type FormElement = {
+  name: string;
+  attributes: TagAttributes;
+  body?: string;
+};
+
+const capitalize = (value: string): string =>
+  `${value.charAt(0).toUpperCase()}${value.slice(1)}`;
+
 const toTagAttributes = (options: InputOptions): TagAttributes =>
   Object.fromEntries(
     Object.entries(options).filter(([, value]) => value !== undefined),
   ) as TagAttributes;
 
 class FormBuilder {
-  private readonly fields: string[] = [];
+  private readonly elements: FormElement[] = [];
 
   constructor(private readonly entity: Entity) {}
 
@@ -22,33 +31,40 @@ class FormBuilder {
       throw new Error(`Field '${name}' does not exist in the template.`);
     }
 
+    this.elements.push({
+      name: 'label',
+      attributes: { for: name },
+      body: capitalize(name),
+    });
+
     const { as, ...customAttributes } = options;
     const attributes = toTagAttributes(customAttributes);
     const value = String(this.entity[name]);
 
     if (as === 'textarea') {
-      this.fields.push(
-        new Tag(
-          'textarea',
-          { cols: 20, rows: 40, name, ...attributes },
-          value,
-        ).toString(),
-      );
+      this.elements.push({
+        name: 'textarea',
+        attributes: { cols: 20, rows: 40, name, ...attributes },
+        body: value,
+      });
       return;
     }
 
-    this.fields.push(
-      new Tag('input', {
-        name,
-        type: 'text',
-        value,
-        ...attributes,
-      }).toString(),
-    );
+    this.elements.push({
+      name: 'input',
+      attributes: { name, type: 'text', value, ...attributes },
+    });
   }
 
-  toString(): string {
-    return this.fields.join('');
+  submit(value = 'Save'): void {
+    this.elements.push({
+      name: 'input',
+      attributes: { type: 'submit', value },
+    });
+  }
+
+  getElements(): readonly FormElement[] {
+    return this.elements;
   }
 }
 
