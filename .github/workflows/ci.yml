@@ -1,10 +1,9 @@
 name: CI
 
 on:
-  push:
+  pull_request:
     branches:
       - '**'
-  pull_request:
 
 permissions:
   contents: read
@@ -32,9 +31,3 @@ jobs:
 
       - name: Run tests with coverage
         run: make test-coverage
-
-      - name: Send coverage to SonarQube Cloud
-        if: env.SONAR_TOKEN != ''
-        uses: SonarSource/sonarqube-scan-action@v6
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
