@@ -2,8 +2,10 @@
   "name": "@hexlet/react-urfu-project-81",
   "version": "1.0.0",
   "description": "[![hexlet-check](https://github.com/Daewoow/react-urfu-project-81/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Daewoow/react-urfu-project-81/actions)",
-  "main": "index.js",
+  "main": "dist/Tag.js",
+  "types": "dist/Tag.d.ts",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -13,12 +15,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/Daewoow/react-urfu-project-81/issues"
   },
   "homepage": "https://github.com/Daewoow/react-urfu-project-81#readme",
   "devDependencies": {
+    "eslint": "^10.13.0",
     "typescript": "^7.0.2"
   }
 }
