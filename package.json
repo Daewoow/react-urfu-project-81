@@ -2,8 +2,8 @@
   "name": "@hexlet/react-urfu-project-81",
   "version": "1.0.0",
   "description": "[![hexlet-check](https://github.com/Daewoow/react-urfu-project-81/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Daewoow/react-urfu-project-81/actions)",
-  "main": "dist/Tag.js",
-  "types": "dist/Tag.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "lint": "eslint .",
